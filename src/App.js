@@ -1,40 +1,31 @@
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './app.css';
-import { useNavigate } from "react-router-dom";
 
 function App() {
   const navigate = useNavigate();
-  let count = 0;
+  const [name, setName] = useState('');
 
-  const handleClick = () => {
-    navigate('/rank');
-  }
+  const handleInputChange = (e) => {
+    setName(e.target.value);
+  };
 
-  const incrementCount = () => {
-    count++;
-    document.getElementById('count').textContent = count;
-  }
+  const handleStartGame = () => {
+    localStorage.setItem('playerName', name);
+    navigate('/click'); 
+  };
 
   return (
-    <html lang="en">
-      <head>
-        <meta charSet="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" type="text/css" href="styles.css" />
-        <title>카운터</title>
-      </head>
-      <body>
-        <div className="counter">
-          <h1>카운터</h1>
-          <p id="count">{count}</p>
-          <button id="increment" onClick={incrementCount}>증가</button>
-        </div>
-        <br></br>
-        <div>
-          <button id="rank" onClick={handleClick}>순위</button>
-        </div>
-      </body>
-    </html>
-
+    <div className="start-screen">
+      <p>이름을 입력하세요</p>
+      <input
+        type="text"
+        placeholder="이름"
+        value={name}
+        onChange={handleInputChange}
+      />
+      <button onClick={handleStartGame}>시작</button>
+    </div>
   );
 }
 

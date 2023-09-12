@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import './app.css';
+import './rank.css';
 
 function Rank() {
     const navigate = useNavigate();
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        fetch('/api/data')
+        fetch('http://localhost:8080/getrank', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
             .then((response) => response.json())
             .then((result) => {
+                console.log(result);
                 setData(result);
             })
             .catch((error) => {
@@ -18,43 +24,42 @@ function Rank() {
     }, []);
 
     const handleClick = () => {
-        navigate('/');
+        navigate('/click');
     };
 
     return (
         <html lang="en">
-            <header>
-                <button onClick={handleClick}>뒤로 가기</button>
-            </header>
             <head>
                 <meta charset="UTF-8" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                <link rel="stylesheet" type="text/css" href="styles.css" />
-                <title>순위 표</title>
+                <link rel="stylesheet" type="text/css" href="rank.css" />
             </head>
             <body>
                 <h1>순위 표</h1>
                 <table class="rankings-table">
                     <thead>
                         <tr>
-                            <th>순위</th>
-                            <th>팀</th>
-                            <th>승리</th>
-                            <th>패배</th>
-                            <th>무승부</th>
-                            <th>점수</th>
+                            <th>Name</th>
+                            <th>Count</th>
+                            <th>Time</th>
                         </tr>
                     </thead>
                     <tbody>
                         {data.map((item) => (
                             <tr key={item.id}>
-                                <td>{item.title}</td>
-                                <td>{item.content}</td>
+                                <td>{item.playerName}</td>
+                                <td>{item.clickCount}</td>
+                                <td>{item.timeLog}</td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
             </body>
+            <footer className="footer">
+                <button id="rank" onClick={handleClick}>
+                    뒤로가기
+                </button>
+            </footer>
         </html>
     );
 }

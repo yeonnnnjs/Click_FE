@@ -1,40 +1,42 @@
-/* styles.css */
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  flex-direction: column;
-}
+/* app.css */
 
-.counter {
+/* 게임 시작 화면 스타일 */
+.start-screen {
   text-align: center;
-  background-color: #fff;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   padding: 20px;
-  border-radius: 4px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 300px;
+  margin: 0 auto;
 }
 
-h1 {
+.start-screen h1 {
   font-size: 24px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
-p {
-  font-size: 36px;
-  margin-bottom: 20px;
+.start-screen p {
+  font-size: 16px;
+  margin-bottom: 5px;
 }
 
-button {
+.start-screen input {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.start-screen button {
   background-color: #007bff;
   color: #fff;
-  padding: 10px 20px;
   border: none;
-  border-radius: 4px;
+  padding: 10px 20px;
+  border-radius: 5px;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 16px;
+}
+
+.start-screen button:hover {
+  background-color: #0056b3;
 }
