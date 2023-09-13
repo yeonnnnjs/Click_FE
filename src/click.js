@@ -18,7 +18,7 @@ function App() {
       .then((response) => response.json())
       .then((result) => {
         console.log(result);
-        if(result >= 0)
+        if (result >= 0)
           setCount(result);
       })
       .catch((error) => {
@@ -56,13 +56,24 @@ function App() {
     navigate('/rank');
   }
 
+  const handleBack = () => {
+    navigate('/');
+  }
+
   const incrementCount = () => {
-    setCount(count+1);
+    setCount(count + 1);
     document.getElementById('count').textContent = count;
   }
 
   return (
     <html lang="en">
+      <header>
+        <nav>
+          <button id="rank" onClick={handleBack}>
+            Home
+          </button>
+        </nav>
+      </header>
       <head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
