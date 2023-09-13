@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import './click.css';
+import styles from './click.css';
 import { useNavigate } from "react-router-dom";
 
 function App() {
   const navigate = useNavigate();
   const [count, setCount] = useState(0);
   const name = localStorage.getItem('playerName');
+  const address = "localhost";
 
   useEffect(() => {
-    fetch('http://localhost:8080/getcount', {
+    fetch('http://'+address+':8080/getcount', {
       method: 'POST',
       body: JSON.stringify({ name }),
       headers: {
@@ -32,7 +33,7 @@ function App() {
   }, []);
 
   const addRank = () => {
-    fetch('http://localhost:8080/addrank', {
+    fetch('http://'+address+':8080/addrank', {
       method: 'POST',
       body: JSON.stringify({ name, count }),
       headers: {

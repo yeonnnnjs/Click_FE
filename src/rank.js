@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import './rank.css';
+import styles from './rank.css';
 
 function Rank() {
     const navigate = useNavigate();
     const [data, setData] = useState([]);
+    const address = "localhost";
 
     useEffect(() => {
-        fetch('http://localhost:8080/getrank', {
+        fetch('http://'+address+':8080/getrank', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
