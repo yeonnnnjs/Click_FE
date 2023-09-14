@@ -8,8 +8,8 @@ body {
     align-items: center;
     height: 100vh;
     flex-direction: column;
-    overflow-x: 'hidden';
-    overflow-y: 'hidden';
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 .footer {
@@ -40,7 +40,8 @@ header {
 
 .rankings-table {
     border-collapse: collapse;
-    width: 80%;
+    width: auto;
+    height: auto;
     margin-top: 20px;
     background-color: #fff;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);

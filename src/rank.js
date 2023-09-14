@@ -5,7 +5,7 @@ import "./rank.css"
 function Rank() {
     const navigate = useNavigate();
     const [data, setData] = useState([]);
-    const address = "0.0.0.0";
+    const address = "";
 
     useEffect(() => {
         fetch('http://'+address+':8080/getrank', {
@@ -31,12 +31,12 @@ function Rank() {
     return (
         <html lang="en">
             <head>
-                <meta charset="UTF-8" />
+                <meta charSet="UTF-8" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             </head>
             <body>
-                <h1>순위 표</h1>
-                <table class="rankings-table">
+                <h1>순위표</h1>
+                <table className="rankings-table">
                     <thead>
                         <tr>
                             <th>Name</th>

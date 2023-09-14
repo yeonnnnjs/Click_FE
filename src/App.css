@@ -8,6 +8,10 @@
   margin: 0 auto;
 }
 
+.playername {
+  font-size: 12px;
+}
+
 .start-screen h1 {
   font-size: 24px;
   margin-bottom: 10px;

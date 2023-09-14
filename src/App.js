@@ -12,19 +12,31 @@ function App() {
 
   const handleStartGame = () => {
     localStorage.setItem('playerName', name);
-    navigate('/click'); 
+    navigate('/click');
   };
 
+  const handleClick = () => {
+    navigate('/changelog');
+};
+
   return (
-    <div className="start-screen">
-      <p>이름을 입력하세요</p>
-      <input
-        type="text"
-        placeholder="이름"
-        value={name}
-        onChange={handleInputChange}
-      />
-      <button onClick={handleStartGame}>시작</button>
+    <div>
+      <div className="start-screen">
+        <p>이름을 입력하세요</p>
+        <input
+          type="text"
+          placeholder="이름"
+          value={name}
+          onChange={handleInputChange}
+        />
+        <button onClick={handleStartGame}>시작</button>
+      </div>
+
+      <footer className="footer">
+        <button id="rank" onClick={handleClick}>
+          CHANGELOG
+        </button>
+      </footer>
     </div>
   );
 }

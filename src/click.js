@@ -4,9 +4,9 @@ import "./click.css"
 
 function App() {
   const navigate = useNavigate();
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState();
   const name = localStorage.getItem('playerName');
-  const address = "localhost";
+  const address = "";
 
   useEffect(() => {
     fetch('http://'+address+':8080/getcount', {
@@ -26,11 +26,19 @@ function App() {
         console.error('데이터 전송 중 오류가 발생했습니다.', error);
       });
 
-    window.addEventListener('beforeunload', addRank);
-    return () => {
-      window.removeEventListener('beforeunload', addRank);
-    };
+      (() => {
+        window.addEventListener("beforeunload", preventClose);
+      })();
+     
+      return () => {
+        window.removeEventListener("beforeunload", preventClose);
+      };
   }, []);
+
+  const preventClose = (e) => {
+    e.preventDefault();
+    e.returnValue = "";
+  };
 
   const addRank = () => {
     fetch('http://'+address+':8080/addrank', {
@@ -58,6 +66,7 @@ function App() {
   }
 
   const handleBack = () => {
+    addRank();
     navigate('/');
   }
 
@@ -78,11 +87,11 @@ function App() {
       <head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>카운터</title>
+        <title>click</title>
       </head>
       <body>
         <div className="counter">
-          <h1>카운터</h1>
+          <h1>돌키우기(인데 돌은 아직 안그림)</h1>
           <p id="count">{count}</p>
           <button id="increment" onClick={incrementCount}>증가</button>
         </div>

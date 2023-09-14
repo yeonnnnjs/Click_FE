@@ -5,6 +5,7 @@ import './index.css';
 import App from './App';
 import Click from './click';
 import Rank from './rank';
+import Changelog from './changelog';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -15,6 +16,7 @@ root.render(
         <Route exact id='root' path='/' Component={App} />
         <Route exact path='/click' Component={Click} />
         <Route path='/rank' Component={Rank} />
+        <Route path='/changelog' Component={Changelog} />
       </Routes>
     </Router>
   </React.StrictMode>
