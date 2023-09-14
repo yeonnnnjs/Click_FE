@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import styles from './rank.css';
 
 function Rank() {
     const navigate = useNavigate();
     const [data, setData] = useState([]);
-    const address = "localhost";
+    const address = "0.0.0.0";
 
     useEffect(() => {
         fetch('http://'+address+':8080/getrank', {
@@ -33,7 +32,7 @@ function Rank() {
             <head>
                 <meta charset="UTF-8" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                <link rel="stylesheet" type="text/css" href="rank.css" />
+                <link rel="stylesheet" type="text/css" href="/rank.css" />
             </head>
             <body>
                 <h1>순위 표</h1>

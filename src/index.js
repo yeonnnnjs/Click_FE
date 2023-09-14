@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import styles from './index.css';
-import App from './app';
+import App from './App';
 import Click from './click';
 import Rank from './rank';
 import reportWebVitals from './reportWebVitals';
