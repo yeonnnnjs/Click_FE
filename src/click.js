@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
+import "./click.css"
 
 function App() {
   const navigate = useNavigate();
@@ -77,7 +78,6 @@ function App() {
       <head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" type="text/css" href="/click.css" />
         <title>카운터</title>
       </head>
       <body>

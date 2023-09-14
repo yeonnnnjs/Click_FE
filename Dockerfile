@@ -4,12 +4,7 @@ WORKDIR /app
 COPY . .
 
 RUN npm install
+RUN npm install -g pm2
 RUN npm run build
 
-FROM nginx:1.21
-
-COPY --from=build /app/build /usr/share/nginx/html
-
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["pm2-runtime", "start", "npm start dev"]
