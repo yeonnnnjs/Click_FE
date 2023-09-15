@@ -9,7 +9,7 @@ function App() {
   const address = "";
 
   useEffect(() => {
-    fetch('http://'+address+':8080/getcount', {
+    fetch('http://' + address + ':8080/getcount', {
       method: 'POST',
       body: JSON.stringify({ name }),
       headers: {
@@ -21,27 +21,30 @@ function App() {
         console.log(result);
         if (result >= 0)
           setCount(result);
+        else
+          setCount(0);
       })
       .catch((error) => {
         console.error('데이터 전송 중 오류가 발생했습니다.', error);
       });
 
-      (() => {
-        window.addEventListener("beforeunload", preventClose);
-      })();
-     
-      return () => {
-        window.removeEventListener("beforeunload", preventClose);
-      };
+    (() => {
+      window.addEventListener("beforeunload", preventClose);
+    })();
+
+    return () => {
+      window.removeEventListener("beforeunload", preventClose);
+    };
   }, []);
 
   const preventClose = (e) => {
+    addRank();
     e.preventDefault();
     e.returnValue = "";
   };
 
   const addRank = () => {
-    fetch('http://'+address+':8080/addrank', {
+    fetch('http://' + address + ':8080/addrank', {
       method: 'POST',
       body: JSON.stringify({ name, count }),
       headers: {
@@ -59,6 +62,10 @@ function App() {
         console.error('데이터 전송 중 오류가 발생했습니다.', error);
       });
   };
+
+  const handleKeyDown = (e) => {
+    e.preventDefault();
+  }
 
   const handleClick = () => {
     addRank();
@@ -93,7 +100,7 @@ function App() {
         <div className="counter">
           <h1>돌키우기(인데 돌은 아직 안그림)</h1>
           <p id="count">{count}</p>
-          <button id="increment" onClick={incrementCount}>증가</button>
+          <button id="increment" onKeyDown={handleKeyDown} onClick={incrementCount}>증가</button>
         </div>
         <p className='playername'>{name}</p>
       </body>
