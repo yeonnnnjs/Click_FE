@@ -6,27 +6,29 @@ function App() {
   const navigate = useNavigate();
   const [count, setCount] = useState();
   const name = localStorage.getItem('playerName');
-  const address = "";
+  const clickLogs = [];
+  const address = "localhost";
 
   useEffect(() => {
     fetch('http://' + address + ':8080/getcount', {
       method: 'POST',
       body: JSON.stringify({ name }),
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
     })
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
         if (result >= 0)
           setCount(result);
         else
           setCount(0);
       })
       .catch((error) => {
-        console.error('데이터 전송 중 오류가 발생했습니다.', error);
+        console.error(error);
       });
+    saveLog();
+    const interval = setInterval(saveLog, 30000);
 
     (() => {
       window.addEventListener("beforeunload", preventClose);
@@ -34,8 +36,14 @@ function App() {
 
     return () => {
       window.removeEventListener("beforeunload", preventClose);
+      clearInterval(interval);
     };
   }, []);
+
+  const saveLog = () => {
+    const log = {count : count, timestamp : new Date()};
+    clickLogs.push(log);
+  }
 
   const preventClose = (e) => {
     addRank();
@@ -44,22 +52,20 @@ function App() {
   };
 
   const addRank = () => {
+    saveLog();
     fetch('http://' + address + ':8080/addrank', {
       method: 'POST',
-      body: JSON.stringify({ name, count }),
+      body: JSON.stringify({ name, clickLogs }),
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
     })
       .then((response) => {
         if (response.ok) {
-          console.log('데이터가 성공적으로 전송되었습니다.');
-        } else {
-          console.error('데이터 전송 중 오류가 발생했습니다.');
         }
       })
       .catch((error) => {
-        console.error('데이터 전송 중 오류가 발생했습니다.', error);
+        console.error(error);
       });
   };
 

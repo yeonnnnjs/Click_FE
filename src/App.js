@@ -17,7 +17,7 @@ function App() {
 
   const handleClick = () => {
     navigate('/changelog');
-};
+  };
 
   return (
     <div>

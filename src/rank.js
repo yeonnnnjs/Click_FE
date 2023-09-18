@@ -5,18 +5,17 @@ import "./rank.css"
 function Rank() {
     const navigate = useNavigate();
     const [data, setData] = useState([]);
-    const address = "";
+    const address = "localhost";
 
     useEffect(() => {
         fetch('http://'+address+':8080/getrank', {
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json'
             }
         })
             .then((response) => response.json())
             .then((result) => {
-                console.log(result);
                 setData(result);
             })
             .catch((error) => {
