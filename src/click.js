@@ -1,49 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
-import "./click.css"
+import "./click.css";
 
 function App() {
   const navigate = useNavigate();
-  const [count, setCount] = useState();
+  const [count, setCount] = useState(0);
   const name = localStorage.getItem('playerName');
-  const clickLogs = [];
   const address = "localhost";
 
   useEffect(() => {
-    fetch('http://' + address + ':8080/getcount', {
-      method: 'POST',
-      body: JSON.stringify({ name }),
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        if (result >= 0)
-          setCount(result);
-        else
-          setCount(0);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-    saveLog();
-    const interval = setInterval(saveLog, 30000);
-
+    getCount();
     (() => {
       window.addEventListener("beforeunload", preventClose);
     })();
 
     return () => {
       window.removeEventListener("beforeunload", preventClose);
-      clearInterval(interval);
     };
   }, []);
-
-  const saveLog = () => {
-    const log = {count : count, timestamp : new Date()};
-    clickLogs.push(log);
-  }
 
   const preventClose = (e) => {
     addRank();
@@ -52,18 +26,14 @@ function App() {
   };
 
   const addRank = () => {
-    saveLog();
+    const key = name + count;
     fetch('http://' + address + ':8080/addrank', {
       method: 'POST',
-      body: JSON.stringify({ name, clickLogs }),
+      body: JSON.stringify({ key }),
       headers: {
         'Content-Type': 'application/json'
       },
     })
-      .then((response) => {
-        if (response.ok) {
-        }
-      })
       .catch((error) => {
         console.error(error);
       });
@@ -83,9 +53,63 @@ function App() {
     navigate('/');
   }
 
+  const getCount = () => {
+    fetch('http://' + address + ':8080/getcount', {
+      method: 'POST',
+      body: JSON.stringify({ name }),
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        if (result >= 0)
+          setCount(result);
+        
+        setRedis();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
+  const getRedis = () => {
+    const key = name+count;
+    fetch('http://' + address + ':8080/getredis', {
+      method: 'POST',
+      body: JSON.stringify({ key }),
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+      .then((result) => {
+        return result;
+      })
+      .catch((error) => {
+        console.error(error);
+        return false;
+      });
+  };
+
+  const setRedis = () => {
+    const key = name+count;
+    fetch('http://' + address + ':8080/setredis', {
+      method: 'POST',
+      body: JSON.stringify({ key, value : { name, count, timestamp : new Date() } }),
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
   const incrementCount = () => {
-    setCount(count + 1);
-    document.getElementById('count').textContent = count;
+    setCount(count+1);
+    if(!getRedis()) {
+      setRedis();
+    }
   }
 
   return (
