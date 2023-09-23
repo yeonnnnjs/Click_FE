@@ -4,12 +4,11 @@ import "./click.css";
 
 function App() {
   const navigate = useNavigate();
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState();
   const name = localStorage.getItem('playerName');
   const address = "localhost";
 
   useEffect(() => {
-    getCount();
     (() => {
       window.addEventListener("beforeunload", preventClose);
     })();
@@ -17,6 +16,10 @@ function App() {
     return () => {
       window.removeEventListener("beforeunload", preventClose);
     };
+  });
+
+  useEffect(() => {
+    getCount();
   }, []);
 
   const preventClose = (e) => {
@@ -26,10 +29,9 @@ function App() {
   };
 
   const addRank = () => {
-    const key = name + count;
     fetch('http://' + address + ':8080/addrank', {
       method: 'POST',
-      body: JSON.stringify({ key }),
+      body: JSON.stringify({ name }),
       headers: {
         'Content-Type': 'application/json'
       },
@@ -63,53 +65,31 @@ function App() {
     })
       .then((response) => response.json())
       .then((result) => {
-        if (result >= 0)
           setCount(result);
-        
-        setRedis();
       })
       .catch((error) => {
         console.error(error);
       });
   }
 
-  const getRedis = () => {
-    const key = name+count;
-    fetch('http://' + address + ':8080/getredis', {
-      method: 'POST',
-      body: JSON.stringify({ key }),
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    })
-      .then((result) => {
-        return result;
-      })
-      .catch((error) => {
-        console.error(error);
-        return false;
-      });
-  };
-
   const setRedis = () => {
-    const key = name+count;
     fetch('http://' + address + ':8080/setredis', {
       method: 'POST',
-      body: JSON.stringify({ key, value : { name, count, timestamp : new Date() } }),
+      body: JSON.stringify({ name, timestamp: new Date() }),
       headers: {
         'Content-Type': 'application/json'
       },
     })
+      .then(() => {
+        setCount(count+1);
+      })
       .catch((error) => {
         console.error(error);
       });
   }
 
   const incrementCount = () => {
-    setCount(count+1);
-    if(!getRedis()) {
-      setRedis();
-    }
+    setRedis();
   }
 
   return (
