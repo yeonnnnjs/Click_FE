@@ -75,7 +75,7 @@ function App() {
   const setRedis = () => {
     fetch('http://' + address + ':8080/setredis', {
       method: 'POST',
-      body: JSON.stringify({ name, timestamp: new Date() }),
+      body: JSON.stringify({ name }),
       headers: {
         'Content-Type': 'application/json'
       },

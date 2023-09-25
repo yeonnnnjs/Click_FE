@@ -16,6 +16,11 @@ function Changelog() {
             </head>
             <body>
                 <h1>CHANGELOG</h1>
+                <h2>v0.0.6</h2>
+                <p className='playername'>Timestamp logic Backend로 이동</p>
+                <p className='playername'>Response Msg 수정</p>
+                <h2>v0.0.5</h2>
+                <p className='playername'>Event logic Backend로 이동</p>
                 <h2>v0.0.4</h2>
                 <p className='playername'>Redis 적용</p>
                 <h2>v0.0.3</h2>
