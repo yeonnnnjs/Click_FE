@@ -48,7 +48,7 @@ function Rank() {
                             <tr key={item.id}>
                                 <td>{item.playerName}</td>
                                 <td>{item.clickCount}</td>
-                                <td>{item.timeLog}</td>
+                                <td>{item.timestamp}</td>
                             </tr>
                         ))}
                     </tbody>
