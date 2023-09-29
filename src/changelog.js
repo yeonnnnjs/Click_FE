@@ -12,10 +12,13 @@ function Changelog() {
         <html lang="en">
             <head>
                 <meta charSet="UTF-8" />
-                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
             </head>
             <body>
                 <h1>CHANGELOG</h1>
+                <h2>v0.0.7</h2>
+                <p className='playername'>모바일 환경에서 확대/축소 비활성화</p>
+                <p className='playername'>대결모드 추가</p>
                 <h2>v0.0.6</h2>
                 <p className='playername'>Timestamp logic Backend로 이동</p>
                 <p className='playername'>Response Msg 수정</p>

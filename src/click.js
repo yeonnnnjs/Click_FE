@@ -6,7 +6,7 @@ function App() {
   const navigate = useNavigate();
   const [count, setCount] = useState();
   const name = localStorage.getItem('playerName');
-  const address = "localhost";
+  const address = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     (() => {
@@ -65,7 +65,7 @@ function App() {
     })
       .then((response) => response.json())
       .then((result) => {
-          setCount(result);
+        setCount(result);
       })
       .catch((error) => {
         console.error(error);
@@ -81,7 +81,7 @@ function App() {
       },
     })
       .then(() => {
-        setCount(count+1);
+        setCount(count + 1);
       })
       .catch((error) => {
         console.error(error);
@@ -94,6 +94,11 @@ function App() {
 
   return (
     <html lang="en">
+      <head>
+        <meta charSet="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
+        <title>click</title>
+      </head>
       <header>
         <nav>
           <button id="rank" onClick={handleBack}>
@@ -101,11 +106,6 @@ function App() {
           </button>
         </nav>
       </header>
-      <head>
-        <meta charSet="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>click</title>
-      </head>
       <body>
         <div className="counter">
           <h1>돌키우기(인데 돌은 아직 안그림)</h1>

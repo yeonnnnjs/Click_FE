@@ -10,9 +10,14 @@ function App() {
     setName(e.target.value);
   };
 
-  const handleStartGame = () => {
+  const handleStartClick = () => {
     localStorage.setItem('playerName', name);
     navigate('/click');
+  };
+
+  const handleStartGame = () => {
+    localStorage.setItem('playerName', name);
+    navigate('/roomlist');
   };
 
   const handleClick = () => {
@@ -20,8 +25,12 @@ function App() {
   };
 
   return (
-    <div>
-      <div className="start-screen">
+    <html lang="en">
+      <head>
+        <meta charSet="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
+      </head>
+      <body className="start-screen">
         <p>이름을 입력하세요</p>
         <input
           type="text"
@@ -29,15 +38,18 @@ function App() {
           value={name}
           onChange={handleInputChange}
         />
-        <button onClick={handleStartGame}>시작</button>
-      </div>
+        <div className='button-container'>
+          <button onClick={handleStartClick}>기록</button>
+          <button onClick={handleStartGame}>대결</button>
+        </div>
+      </body>
 
       <footer className="footer">
         <button id="rank" onClick={handleClick}>
           CHANGELOG
         </button>
       </footer>
-    </div>
+    </html>
   );
 }
 

@@ -84,6 +84,17 @@ p {
   right: 0;
 }
 
+.stone {
+  width: 50vw;;
+  height: 60vh; 
+  background-image: url('./stone.png');
+  background-color: #fff; 
+  background-size: cover; 
+  background-repeat: no-repeat; 
+  border: none; 
+  cursor: pointer;
+}
+
 button {
   background-color: #007bff;
   color: #fff;

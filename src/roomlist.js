@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import "./rank.css"
+import "./roomlist.css"
 
-function Rank() {
+function RoomList() {
     const navigate = useNavigate();
     const [data, setData] = useState([]);
     const address = process.env.REACT_APP_API_URL;
 
     useEffect(() => {
-        fetch('http://'+address+':8080/getrank', {
+        fetch('http://' + address + ':8080/getroom', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -23,8 +23,12 @@ function Rank() {
             });
     }, []);
 
-    const handleClick = () => {
-        navigate('/click');
+    const handleBack = () => {
+        navigate('/');
+    };
+
+    const handleMakeRoom = () => {
+        navigate('/makeroom');
     };
 
     return (
@@ -33,34 +37,30 @@ function Rank() {
                 <meta charSet="UTF-8" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
             </head>
+        <header>
+          <nav>
+            <button onClick={handleBack}>
+              Home
+            </button>
+          </nav>
+        </header>
             <body>
-                <h1>순위표</h1>
-                <table className="rankings-table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Count</th>
-                            <th>Time</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {data.map((item) => (
-                            <tr key={item.id}>
-                                <td>{item.playerName}</td>
-                                <td>{item.clickCount}</td>
-                                <td>{item.timestamp}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+                <h1>대기 중인 대결</h1>
+                <ul>
+                    {data.map((room) => (
+                        <li key={room.id}>
+                            <strong>{room.name}</strong> - {room.players} 플레이어 - {room.mode}
+                        </li>
+                    ))}
+                </ul>
             </body>
             <footer className="footer">
-                <button onClick={handleClick}>
-                    뒤로가기
+                <button onClick={handleMakeRoom}>
+                    방 만들기
                 </button>
             </footer>
         </html>
     );
 }
 
-export default Rank;
+export default RoomList;
