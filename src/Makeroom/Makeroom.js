@@ -41,7 +41,7 @@ function MakeRoom() {
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
       </head>
-      <body className="start-screen">
+      <body className="border-screen">
         <p>방 제목을 입력하세요</p>
         <input
           type="text"

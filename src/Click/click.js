@@ -106,7 +106,7 @@ function App() {
           </button>
         </nav>
       </header>
-      <body>
+      <body className='click-body'>
         <div className="counter">
           <h1>돌키우기(인데 돌은 아직 안그림)</h1>
           <p id="count">{count}</p>

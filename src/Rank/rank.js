@@ -33,7 +33,7 @@ function Rank() {
                 <meta charSet="UTF-8" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
             </head>
-            <body>
+            <body className='rank-body'>
                 <h1>순위표</h1>
                 <table className="rankings-table">
                     <thead>

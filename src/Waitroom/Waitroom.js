@@ -21,7 +21,7 @@ function WaitRoom() {
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
       </head>
-      <body className="start-screen">
+      <body className="border-screen">
         <p>대기 중..</p>
         <p>{title} by {name}</p>
         <div className='button-container'>

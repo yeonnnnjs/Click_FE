@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './App.css';
+import './App.css'
 
 function App() {
   const navigate = useNavigate();
@@ -30,7 +30,7 @@ function App() {
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
       </head>
-      <body className="start-screen">
+      <body className="border-screen">
         <p>이름을 입력하세요</p>
         <input
           type="text"
@@ -43,7 +43,6 @@ function App() {
           <button onClick={handleStartGame}>대결</button>
         </div>
       </body>
-
       <footer className="footer">
         <button id="rank" onClick={handleClick}>
           CHANGELOG

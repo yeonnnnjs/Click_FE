@@ -37,14 +37,14 @@ function RoomList() {
                 <meta charSet="UTF-8" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
             </head>
-        <header>
-          <nav>
-            <button onClick={handleBack}>
-              Home
-            </button>
-          </nav>
-        </header>
-            <body>
+            <header>
+                <nav>
+                    <button onClick={handleBack}>
+                        Home
+                    </button>
+                </nav>
+            </header>
+            <body className='roomlist-body'>
                 <h1>대기 중인 대결</h1>
                 <ul>
                     {data.map((room) => (
