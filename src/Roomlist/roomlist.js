@@ -8,7 +8,7 @@ function RoomList() {
     const address = process.env.REACT_APP_API_URL;
 
     useEffect(() => {
-        fetch('http://' + address + ':8080/getroom', {
+        fetch('http://' + address + ':8080/roomlist', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -16,6 +16,7 @@ function RoomList() {
         })
             .then((response) => response.json())
             .then((result) => {
+                console.log(result);
                 setData(result);
             })
             .catch((error) => {
@@ -46,13 +47,24 @@ function RoomList() {
             </header>
             <body className='roomlist-body'>
                 <h1>대기 중인 대결</h1>
-                <ul>
-                    {data.map((room) => (
-                        <li key={room.id}>
-                            <strong>{room.name}</strong> - {room.players} 플레이어 - {room.mode}
-                        </li>
-                    ))}
-                </ul>
+                <table className="rankings-table">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Player Name</th>
+                            <th>Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {data.map((item) => (
+                            <tr key={item.id}>
+                                <td>{item.title}</td>
+                                <td>{item.name}</td>
+                                <td>{item.timestamp}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             </body>
             <footer className="footer">
                 <button onClick={handleMakeRoom}>

@@ -6,12 +6,27 @@ function WaitRoom() {
   const navigate = useNavigate();
   const title = localStorage.getItem('title');
   const name = localStorage.getItem('playerName');
+  const address = process.env.REACT_APP_API_URL;
+
+  const deleteRoom = () => {
+    fetch('http://' + address + ':8080/' + name, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
 
   const handleBack = () => {
+    deleteRoom();
     navigate('/makeroom');
   };
 
   const handleCancel = () => {
+    deleteRoom();
     navigate('/roomlist');
   };
 
