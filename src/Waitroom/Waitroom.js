@@ -1,12 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Waitroom.css';
+import io from 'socket.io-client';
+
+const socket = io('http://localhost:8100');
 
 function WaitRoom() {
   const navigate = useNavigate();
   const title = localStorage.getItem('title');
   const name = localStorage.getItem('playerName');
   const address = process.env.REACT_APP_API_URL;
+
+  useEffect(() => {
+    socket.on('ingame', () => {
+        navigate('/game');
+    });
+  }, []);
 
   const deleteRoom = () => {
     fetch('http://' + address + ':8080/' + name, {
@@ -40,6 +49,7 @@ function WaitRoom() {
         <p>대기 중..</p>
         <p>{title} by {name}</p>
         <div className='button-container'>
+          
           <button id='cancelbtn' onClick={handleCancel}>취소</button>
         </div>
       </body>

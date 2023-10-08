@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Makeroom.css';
+import io from 'socket.io-client';
+
+const socket = io('http://localhost:8100');
 
 function MakeRoom() {
   const navigate = useNavigate();
@@ -21,14 +24,19 @@ function MakeRoom() {
       });
   }
 
+  const createRoom = () => {
+    socket.emit('createRoom', title, name);
+  }
+
   const handleInputChange = (e) => {
     setTitle(e.target.value);
   };
 
   const handleStartClick = () => {
     localStorage.setItem('title', title);
+    createRoom();
     postMakeRoom();
-    navigate('/waitroom');
+    navigate('/game');
   };
 
   const handleBack = () => {

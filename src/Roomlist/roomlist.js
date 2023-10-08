@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import "./roomlist.css"
+import io from 'socket.io-client';
+
+const socket = io('http://localhost:8100');
 
 function RoomList() {
     const navigate = useNavigate();
+    const name = localStorage.getItem('playerName');
     const [data, setData] = useState([]);
     const address = process.env.REACT_APP_API_URL;
 
@@ -23,6 +27,11 @@ function RoomList() {
                 console.error('데이터 가져오기 실패:', error);
             });
     }, []);
+
+    const joinRoom = (item) => {
+       socket.emit('joinRoom', item.title, name);
+       navigate('/game');
+    }
 
     const handleBack = () => {
         navigate('/');
@@ -53,6 +62,7 @@ function RoomList() {
                             <th>Title</th>
                             <th>Player Name</th>
                             <th>Time</th>
+                            <th>Play</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -61,6 +71,11 @@ function RoomList() {
                                 <td>{item.title}</td>
                                 <td>{item.name}</td>
                                 <td>{item.timestamp}</td>
+                                <td>
+                                    <button onClick={() => joinRoom(item)}>
+                                        Play
+                                    </button>
+                                </td>
                             </tr>
                         ))}
                     </tbody>
