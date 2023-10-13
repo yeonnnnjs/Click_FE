@@ -1,45 +1,41 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import "./roomlist.css"
-import io from 'socket.io-client';
+import { socket } from '../Context/socketContext';
+import "./result.css"
 
-const socket = io('http://localhost:8100');
-
-function RoomList() {
+function Result() {
     const navigate = useNavigate();
-    const name = localStorage.getItem('playerName');
     const [data, setData] = useState([]);
+    const roomName = localStorage.getItem('roomName');
+    const name = localStorage.getItem('playerName');
     const address = process.env.REACT_APP_API_URL;
 
     useEffect(() => {
-        fetch('http://' + address + ':8080/roomlist', {
-            method: 'GET',
+        fetch('http://' + address + ':8080/game/getscore', {
+            method: 'POST',
+            body: JSON.stringify({ name }),
             headers: {
                 'Content-Type': 'application/json'
             }
         })
             .then((response) => response.json())
             .then((result) => {
-                console.log(result);
-                setData(result);
+                socket.emit('addResult', roomName, name, result );
             })
             .catch((error) => {
                 console.error('데이터 가져오기 실패:', error);
             });
     }, []);
 
-    const joinRoom = (item) => {
-       socket.emit('joinRoom', item.title, name);
-       navigate('/game');
-    }
+    useEffect(() => {
+        socket.on('result', (result) => {
+            setData(result);
+        });
+    });
 
     const handleBack = () => {
         navigate('/');
-    };
-
-    const handleMakeRoom = () => {
-        navigate('/makeroom');
-    };
+    }
 
     return (
         <html lang="en">
@@ -49,45 +45,32 @@ function RoomList() {
             </head>
             <header>
                 <nav>
-                    <button onClick={handleBack}>
+                    <button id="rank" onClick={handleBack}>
                         Home
                     </button>
                 </nav>
             </header>
-            <body className='roomlist-body'>
-                <h1>대기 중인 대결</h1>
+            <body className='rank-body'>
+                <h1>{roomName} 결과</h1>
                 <table className="rankings-table">
                     <thead>
                         <tr>
-                            <th>Title</th>
-                            <th>Player Name</th>
-                            <th>Time</th>
-                            <th>Play</th>
+                            <th>Name</th>
+                            <th>Count</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {data.map((item) => (
+                        {Object.values(data).map((item) => (
                             <tr key={item.id}>
-                                <td>{item.title}</td>
                                 <td>{item.name}</td>
-                                <td>{item.timestamp}</td>
-                                <td>
-                                    <button onClick={() => joinRoom(item)}>
-                                        Play
-                                    </button>
-                                </td>
+                                <td>{item.count}</td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
             </body>
-            <footer className="footer">
-                <button onClick={handleMakeRoom}>
-                    방 만들기
-                </button>
-            </footer>
         </html>
     );
 }
 
-export default RoomList;
+export default Result;

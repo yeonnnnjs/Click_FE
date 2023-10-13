@@ -17,7 +17,7 @@ function App() {
 
   const handleStartGame = () => {
     localStorage.setItem('playerName', name);
-    navigate('/game');
+    navigate('/room');
   };
 
   const handleClick = () => {

@@ -1,46 +1,52 @@
 import React, { useState, useEffect } from 'react';
-import io from 'socket.io-client';
+import { useNavigate } from "react-router-dom";
+import { socket } from '../Context/socketContext';
+import "./game.css";
 
-const socket = io('http://localhost:8100');
-
-function App() {
-  const [roomName, setRoomName] = useState('');
-  const name = localStorage.getItem('playerName');
-  const [players, setPlayers] = useState([]);
+function Game() {
+  const navigate = useNavigate();
+  const [count, setCount] = useState(0);
+  const [gameStart, setGameStart] = useState(false);
   const [ready, setReady] = useState(false);
-  const [isInput, setIsInput] = useState(false);
-  const [gameStarted, setGameStarted] = useState(false);
+  const name = localStorage.getItem('playerName');
+  const roomName = localStorage.getItem('roomName');
+  const address = process.env.REACT_APP_API_URL;
+  const [time, setTime] = useState(); 
 
   useEffect(() => {
-    socket.on('roomCreated', (roomName, playerList) => {
-      console.log("roomCreated", roomName);
-      setRoomName(roomName);
-      setPlayers(playerList);
+    (() => {
+      window.addEventListener("beforeunload", preventClose);
+    })();
+
+    socket.on('gameStart', (playerList) => {
+      setGameStart(true);
     });
 
-    socket.on('updatePlayers', (playerList) => {
-      console.log("updatePlayers", playerList);
-      setPlayers(playerList);
+    socket.on('timer', (time) => {
+      setTime(time);
     });
 
-    socket.on('gameStart', () => {
-      console.log("gameStart");
-      setGameStarted(true);
-      setReady(false);
+    socket.on('gameEnd', (playerList) => {
+      navigate("/result");
     });
+
+    return () => {
+      window.removeEventListener("beforeunload", preventClose);
+    };
   });
 
-  const createRoom = () => {
-    console.log("create", roomName, name);
-    setIsInput(true);
-    socket.emit('createRoom', roomName, name);
+  const preventClose = (e) => {
+    e.preventDefault();
+    e.returnValue = "";
   };
 
-  const joinRoom = () => {
-    console.log("join", roomName, name);
-    setIsInput(true);
-    socket.emit('joinRoom', roomName, name);
-  };
+  const handleKeyDown = (e) => {
+    e.preventDefault();
+  }
+
+  const handleBack = () => {
+    navigate('/');
+  }
 
   const handleReady = () => {
     console.log("ready");
@@ -48,37 +54,63 @@ function App() {
     setReady(true);
   };
 
+  const setRedis = () => {
+    fetch('http://' + address + ':8080/game/setredis', {
+      method: 'POST',
+      body: JSON.stringify({ name }),
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+      .then(() => {
+        setCount(count + 1);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
+  const incrementCount = () => {
+    setRedis();
+  }
+
   return (
-    <div>
-      {!isInput ? (
-        <div>
-          <input
-            type="text"
-            placeholder="방 이름"
-            value={roomName}
-            onChange={(e) => setRoomName(e.target.value)}
-          />
-          <button onClick={createRoom}>방 만들기</button>
-          <button onClick={joinRoom}>방 입장</button>
-        </div>
-      ) : (
-        <div>
-          <h1>대기실 - 방 이름: {roomName}</h1>
-          <h2>플레이어 목록:</h2>
-          <ul>
-            {players.map((player) => (
-              <li key={player.id}>{player.name}</li>
-            ))}
-          </ul>
-          {ready ? (
-            <p>준비 상태</p>
-          ) : (
-            <button onClick={handleReady}>Ready</button>
-          )}
-        </div>
-      )}
-    </div>
+    <html lang="en">
+      <head>
+        <meta charSet="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
+        <title>click</title>
+      </head>
+      <header>
+        <nav>
+          <button id="rank" onClick={handleBack}>
+            Home
+          </button>
+        </nav>
+      </header>
+      {
+        gameStart ? (
+          <body className='click-body'>
+            <div className="counter">
+              <h1>돌키우기(인데 돌은 아직 안그림)</h1>
+              <p id="timer">{time}s/30s</p>
+              <p id="count">{count}</p>
+              <button id="increment" onKeyDown={handleKeyDown} onClick={incrementCount}>증가</button>
+            </div>
+            <p className='playername'>{name}</p>
+          </body>
+        ) : (
+          <body>
+            {ready ? (
+              <p>준비 상태</p>
+            ) : (
+              <button onClick={handleReady}>Ready</button>
+            )}
+          </body>
+        )
+      }
+    </html>
   );
 }
 
-export default App;
+export default Game;
