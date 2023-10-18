@@ -1,7 +1,7 @@
+/* eslint-disable */
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { socket } from '../Context/socketContext';
-import "./result.css"
 
 function Result() {
     const navigate = useNavigate();
@@ -20,7 +20,7 @@ function Result() {
         })
             .then((response) => response.json())
             .then((result) => {
-                socket.emit('addResult', roomName, name, result );
+                socket.emit('addResult', roomName, name, result);
             })
             .catch((error) => {
                 console.error('데이터 가져오기 실패:', error);
@@ -38,19 +38,8 @@ function Result() {
     }
 
     return (
-        <html lang="en">
-            <head>
-                <meta charSet="UTF-8" />
-                <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
-            </head>
-            <header>
-                <nav>
-                    <button id="rank" onClick={handleBack}>
-                        Home
-                    </button>
-                </nav>
-            </header>
-            <body className='rank-body'>
+        <div>
+            <div className='rank-body'>
                 <h1>{roomName} 결과</h1>
                 <table className="rankings-table">
                     <thead>
@@ -68,8 +57,13 @@ function Result() {
                         ))}
                     </tbody>
                 </table>
-            </body>
-        </html>
+            </div>
+            <div className='footer'>
+                <button id="rank" onClick={handleBack}>
+                    Home
+                </button>
+            </div>
+        </div>
     );
 }
 

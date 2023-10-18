@@ -1,40 +1,57 @@
-body {
-  margin: 0;
+.div {
+  width: 100vw;
+  height: 100vh;
+}
+
+.body {
+  width: 100%;
+  height: 94%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  background-color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin : 0;
+  padding : 0;
+  margin-bottom: 6vh;
+
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  flex-direction: column;
 }
 
-header {
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.header {
   background-color: #007bff;
   color: #fff;
   text-align: center;
-  padding: 10px;
-  position: fixed; 
-  left: 0;
-  right: 0;
+  height: 6vh;
+  width: 100%;
+  line-height: 6vh;
+  position: fixed;
+  top: 0;
 }
 
 .footer {
+  display: flex;
   background-color: #007bff;
   color: #fff;
   text-align: center;
-  padding: 10px;
-  position: fixed; 
+  height: 6vh;
+  width: 100%;
+  line-height: 6vh;
+  position: fixed;
   bottom: 0;
-  left: 0;
-  right: 0;
+  justify-content: space-around;
 }
 
 button {
@@ -49,36 +66,36 @@ button {
 
 .border-screen {
   text-align: center;
+  background-color: #fff;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   padding: 20px;
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  height: 20vh;
-  width: 25vw;
-  margin: 0 auto;
+  border-radius: 4px;
+  display : flex;
+  flex-direction: column;
+  height: fit-content;
+  width: fit-content;
+  align-items: center;
+  justify-content: space-around;
 }
 
 .border-screen h1 {
   font-size: 24px;
-  margin-bottom: 10px;
 }
 
 .border-screen p {
-  font-size: 16px;
-  margin-bottom: 5px;
+  font-size: 36px;
 }
 
 .border-screen input {
-  width: 100%;
-  padding: 5px;
-  margin-bottom: 10px;
+  width: 80%;
+  padding: 2vh;
 }
 
 .border-screen button {
   background-color: #007bff;
   color: #fff;
   border: none;
-  padding: 10px 20px;
+  padding: 1vh 2vh;
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
@@ -89,12 +106,28 @@ button {
 }
 
 .button-container {
+  margin-top: 2vh;
   display: flex;
   width: 100%;
   justify-content: space-around;
 }
 
+.poweredText {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.playername {
+  font-size: 12px;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
 }

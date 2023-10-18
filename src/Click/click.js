@@ -1,6 +1,7 @@
+/* eslint-disable */
 import React, { useState, useEffect } from 'react';
+import stone from "../stone.png";
 import { useNavigate } from "react-router-dom";
-import "./click.css";
 
 function App() {
   const navigate = useNavigate();
@@ -93,33 +94,26 @@ function App() {
   }
 
   return (
-    <html lang="en">
-      <head>
-        <meta charSet="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
-        <title>click</title>
-      </head>
-      <header>
-        <nav>
-          <button id="rank" onClick={handleBack}>
-            Home
-          </button>
-        </nav>
-      </header>
-      <body className='click-body'>
-        <div className="counter">
-          <h1>돌키우기(인데 돌은 아직 안그림)</h1>
+    <div className='div'>
+      <div className='body'>
+        <div className="border-screen">
+          <h1>돌키우기</h1>
           <p id="count">{count}</p>
-          <button id="increment" onKeyDown={handleKeyDown} onClick={incrementCount}>증가</button>
+          <a className="stone" onClick={incrementCount}>
+            <img src={stone} alt="Stone Image" />
+          </a>
         </div>
         <p className='playername'>{name}</p>
-      </body>
-      <footer className="footer">
-        <button id="rank" onClick={handleClick}>
+      </div>
+      <div className="footer">
+        <button className='button' onClick={handleBack}>
+          Home
+        </button>
+        <button className='button' onClick={handleClick}>
           순위
         </button>
-      </footer>
-    </html>
+      </div>
+    </div>
   );
 }
 

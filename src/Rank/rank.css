@@ -12,30 +12,8 @@
     overflow-y: scroll;
 }
 
-.footer {
-  background-color: #007bff;
-  color: #fff;
-  text-align: center;
-  padding: 10px;
-  position: fixed; 
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-
 h1 {
     font-size: 24px;
-}
-
-header {
-    position: 'fixed';
-    top: '0';
-    left: '0';
-    right: '0';
-    padding: '10px';
-    display: 'flex';
-    justify-content: 'space-between';
-    align-items: 'center';
 }
 
 .rankings-table {

@@ -1,72 +1,102 @@
+/* eslint-disable */
 import React, { useState, useEffect } from 'react';
 import { socket } from '../Context/socketContext';
 import { useNavigate } from "react-router-dom";
-import "./room.css"
 
 function Room() {
   const [roomName, setRoomName] = useState('');
   const name = localStorage.getItem('playerName');
   const [players, setPlayers] = useState([]);
   const [isInput, setIsInput] = useState(false);
+  const [message, setMessage] = useState("");
+  const [isMaker, setIsMaker] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     socket.on('roomCreated', (roomName, playerList) => {
-      console.log("roomCreated", roomName);
+      setIsInput(true);
+      setIsMaker(true);
       setRoomName(roomName);
       console.log(JSON.stringify(playerList));
       setPlayers(playerList);
     });
 
     socket.on('updatePlayers', (playerList) => {
-      console.log("updatePlayers", playerList);
+      setIsInput(true);
       setPlayers(playerList);
       console.log(players);
     });
 
+    socket.on('errorHandling', (msg) => {
+      setMessage(msg);
+    })
+
     socket.on('inGame', () => {
-      console.log("inGame");
       localStorage.setItem('roomName', roomName);
       navigate('/game');
     });
   });
 
   const createRoom = () => {
-    console.log("create", roomName, name);
-    setIsInput(true);
     socket.emit('createRoom', roomName, name);
   };
 
   const joinRoom = () => {
-    console.log("join", roomName, name);
-    setIsInput(true);
     socket.emit('joinRoom', roomName, name);
   };
 
+  const readyOnWait = () => {
+    socket.emit('readyOnWait', roomName);
+  };
+
+  const handleBack = () => {
+    navigate('/');
+  }
+
   return (
-    <div>
+    <div className='div'>
       {!isInput ? (
-        <div>
-          <input
-            type="text"
-            placeholder="방 이름"
-            value={roomName}
-            onChange={(e) => setRoomName(e.target.value)}
-          />
-          <button onClick={createRoom}>방 만들기</button>
-          <button onClick={joinRoom}>방 입장</button>
+        <div className='body'>
+          <div className="border-screen">
+            <input
+              type="text"
+              placeholder="방 이름"
+              value={roomName}
+              onChange={(e) => setRoomName(e.target.value)}
+            />
+            <div className='button-container'>
+              <div className='button-container'>
+                <button onClick={createRoom}>방 만들기</button>
+                <button onClick={joinRoom}>방 입장</button>
+              </div>
+            </div>
+          </div>
+          <a>{message}</a>
         </div>
       ) : (
-        <div>
-          <h1>방 이름: {roomName}</h1>
-          <h2>플레이어 목록:</h2>
-          <ul>
+        <div className='body'>
+          <div className="border-screen">
+            <h1>{roomName}</h1>
             {Object.values(players).map((player) => (
-              <li key={player.id}>{player.name}</li>
+              <a key={player.id}>{player.name}</a>
             ))}
-          </ul>
+            <div className='button-container'>
+              {
+                isMaker ? (
+                  <button onClick={readyOnWait}>준비</button>
+                ) : (
+                  <a>대기 중..</a>
+                )
+              }
+            </div>
+          </div>
         </div>
       )}
+      <div className='footer'>
+        <button id="rank" onClick={handleBack}>
+          Home
+        </button>
+      </div>
     </div>
   );
 }

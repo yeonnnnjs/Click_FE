@@ -1,6 +1,6 @@
+/* eslint-disable */
 import React from 'react';
 import { useNavigate } from "react-router-dom";
-import "./changelog.css"
 
 function Changelog() {
     const navigate = useNavigate();
@@ -9,12 +9,8 @@ function Changelog() {
     };
 
     return (
-        <html lang="en">
-            <head>
-                <meta charSet="UTF-8" />
-                <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
-            </head>
-            <body>
+        <div>
+            <div className='body'>
                 <h1>CHANGELOG</h1>
                 <h2>v0.0.7</h2>
                 <p className='playername'>모바일 환경에서 확대/축소 비활성화</p>
@@ -32,13 +28,13 @@ function Changelog() {
                 <h2>v0.0.2</h2>
                 <p className='playername'>새로고침 시 초기화 버그 수정</p>
                 <p className='playername'>이상한 POST 날리지말고 순수노동하십쇼^^</p>
-            </body>
-            <footer className="footer">
+            </div>
+            <div className="footer">
                 <button id="rank" onClick={handleClick}>
                     뒤로가기
                 </button>
-            </footer>
-        </html>
+            </div>
+        </div>
     );
 }
 

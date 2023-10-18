@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
@@ -13,7 +14,6 @@ import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
     <Router>
       <Routes>
         <Route exact id='root' path='/' Component={App} />
@@ -25,6 +25,5 @@ root.render(
         <Route exact path='/result' Component={Result} />
       </Routes>
     </Router>
-  </React.StrictMode>
 );
 reportWebVitals();
