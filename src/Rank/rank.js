@@ -29,8 +29,8 @@ function Rank() {
     };
 
     return (
-        <div>
-            <div className='rank-body'>
+        <div className='div'>
+            <div className='body'>
                 <h1>순위표</h1>
                 <table className="rankings-table">
                     <thead>
