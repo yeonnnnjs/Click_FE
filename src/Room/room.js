@@ -17,14 +17,12 @@ function Room() {
       setIsInput(true);
       setIsMaker(true);
       setRoomName(roomName);
-      console.log(JSON.stringify(playerList));
       setPlayers(playerList);
     });
 
     socket.on('updatePlayers', (playerList) => {
       setIsInput(true);
       setPlayers(playerList);
-      console.log(players);
     });
 
     socket.on('errorHandling', (msg) => {
