@@ -38,30 +38,32 @@ function Result() {
     }
 
     return (
-        <div>
-            <div className='rank-body' style={{justifyContent : 'flex-start'}}>
-                <h1>{roomName} 결과</h1>
-                <table id="rankings-table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Count</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {Object.values(data).map((item) => (
-                            <tr key={item.id}>
-                                <td>{item.name}</td>
-                                <td>{item.count}</td>
+        <div className='div'>
+            <div className='body'>
+                <div className='rank-body'>
+                    <h1>{roomName} 결과</h1>
+                    <table id="rankings-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Count</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-            <div className='footer'>
-                <button id="rank" onClick={handleBack}>
-                    Home
-                </button>
+                        </thead>
+                        <tbody>
+                            {Object.values(data).map((item) => (
+                                <tr key={item.id}>
+                                    <td>{item.name}</td>
+                                    <td>{item.count}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+                <div className='footer'>
+                    <button id="rank" onClick={handleBack}>
+                        Home
+                    </button>
+                </div>
             </div>
         </div>
     );
