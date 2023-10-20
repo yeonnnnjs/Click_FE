@@ -11,7 +11,7 @@ function Result() {
     const address = process.env.REACT_APP_API_URL;
 
     useEffect(() => {
-        fetch('http://' + address + '/game/getscore', {
+        fetch(address + '/game/getscore', {
             method: 'POST',
             body: JSON.stringify({ name }),
             headers: {

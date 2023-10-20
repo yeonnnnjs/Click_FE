@@ -30,7 +30,7 @@ function App() {
   };
 
   const addRank = () => {
-    fetch('http://' + address + '/rank/addrank', {
+    fetch(address + '/rank/addrank', {
       method: 'POST',
       body: JSON.stringify({ name }),
       headers: {
@@ -57,7 +57,7 @@ function App() {
   }
 
   const getCount = () => {
-    fetch('http://' + address + '/rank/getcount', {
+    fetch(address + '/rank/getcount', {
       method: 'POST',
       body: JSON.stringify({ name }),
       headers: {
@@ -74,7 +74,7 @@ function App() {
   }
 
   const setRedis = () => {
-    fetch('http://' + address + '/rank/setredis', {
+    fetch(address + '/rank/setredis', {
       method: 'POST',
       body: JSON.stringify({ name }),
       headers: {
