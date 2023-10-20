@@ -96,8 +96,8 @@ function App() {
   return (
     <div className='div'>
       <div className='body'>
-        <div>
-          <p id="count">{count}</p>
+        <div className='click-screen'>
+          <p>{count}</p>
           <a className="stone" onClick={incrementCount}>
             <img src={stone} alt="Stone Image" />
           </a>

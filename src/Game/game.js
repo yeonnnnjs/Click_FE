@@ -79,13 +79,13 @@ function Game() {
       {
         gameStart ? (
           <div className='body'>
-          <p id="timer">{time}s/30s</p>
-          <div>
-          <p id="count">{count}</p>
-          <a className="stone" onClick={incrementCount}>
-            <img src={stone} alt="Stone Image" />
-          </a>
-        </div>
+            <p id="timer">{time}s/30s</p>
+            <div className='click-screen'>
+              <p id="count">{count}</p>
+              <a className="stone" onClick={incrementCount}>
+                <img src={stone} alt="Stone Image" />
+              </a>
+            </div>
             <p className='playername'>{name}</p>
           </div>
         ) : (

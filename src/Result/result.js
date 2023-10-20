@@ -33,7 +33,7 @@ function Result() {
         });
     });
 
-    const handleBack = () => {www
+    const handleBack = () => {
         navigate('/');
     }
 
