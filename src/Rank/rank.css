@@ -1,25 +1,18 @@
-.rank-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 95vh;
-    flex-direction: column;
-    overflow-x: hidden;
-    overflow-y: scroll;
-}
-
 h1 {
     font-size: 24px;
 }
 
+#rank-body {
+  display: flex;
+  justify-content: centeqr;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 6vh;
+  padding: 5;
+}
+
 .rankings-table {
     border-collapse: collapse;
-    width: auto;
-    height: auto;
     background-color: #fff;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     border-radius: 4px;

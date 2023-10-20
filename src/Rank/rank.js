@@ -9,7 +9,7 @@ function Rank() {
     const address = process.env.REACT_APP_API_URL;
 
     useEffect(() => {
-        fetch('http://' + address + ':8080/rank/getrank', {
+        fetch('http://' + address + '/rank/getrank', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -31,25 +31,27 @@ function Rank() {
     return (
         <div className='div'>
             <div className='body'>
+                <div className='rank-body'>
                 <h1>순위표</h1>
-                <table className="rankings-table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Count</th>
-                            <th>Time</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {data.map((item) => (
-                            <tr key={item.id}>
-                                <td>{item.playerName}</td>
-                                <td>{item.clickCount}</td>
-                                <td>{item.timestamp}</td>
+                    <table className="rankings-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Count</th>
+                                <th>Time</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {data.map((item) => (
+                                <tr key={item.id}>
+                                    <td>{item.playerName}</td>
+                                    <td>{item.clickCount}</td>
+                                    <td>{item.timestamp}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                    </div>
             </div>
             <div className='footer'>
                 <button onClick={handleClick}>

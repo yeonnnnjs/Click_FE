@@ -55,7 +55,7 @@ function Game() {
   };
 
   const setRedis = () => {
-    fetch('http://' + address + ':8080/game/setredis', {
+    fetch('http://' + address + '/game/setredis', {
       method: 'POST',
       body: JSON.stringify({ name }),
       headers: {
@@ -80,8 +80,7 @@ function Game() {
         gameStart ? (
           <div className='body'>
           <p id="timer">{time}s/30s</p>
-          <div className="border-screen">
-          <h1>돌키우기</h1>
+          <div>
           <p id="count">{count}</p>
           <a className="stone" onClick={incrementCount}>
             <img src={stone} alt="Stone Image" />

@@ -30,7 +30,7 @@ function App() {
   };
 
   const addRank = () => {
-    fetch('http://' + address + ':8080/rank/addrank', {
+    fetch('http://' + address + '/rank/addrank', {
       method: 'POST',
       body: JSON.stringify({ name }),
       headers: {
@@ -57,7 +57,7 @@ function App() {
   }
 
   const getCount = () => {
-    fetch('http://' + address + ':8080/rank/getcount', {
+    fetch('http://' + address + '/rank/getcount', {
       method: 'POST',
       body: JSON.stringify({ name }),
       headers: {
@@ -74,7 +74,7 @@ function App() {
   }
 
   const setRedis = () => {
-    fetch('http://' + address + ':8080/rank/setredis', {
+    fetch('http://' + address + '/rank/setredis', {
       method: 'POST',
       body: JSON.stringify({ name }),
       headers: {
@@ -96,8 +96,7 @@ function App() {
   return (
     <div className='div'>
       <div className='body'>
-        <div className="border-screen">
-          <h1>돌키우기</h1>
+        <div>
           <p id="count">{count}</p>
           <a className="stone" onClick={incrementCount}>
             <img src={stone} alt="Stone Image" />

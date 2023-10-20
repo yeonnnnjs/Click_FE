@@ -11,7 +11,7 @@ function Result() {
     const address = process.env.REACT_APP_API_URL;
 
     useEffect(() => {
-        fetch('http://' + address + ':8080/game/getscore', {
+        fetch('http://' + address + '/game/getscore', {
             method: 'POST',
             body: JSON.stringify({ name }),
             headers: {
@@ -33,15 +33,15 @@ function Result() {
         });
     });
 
-    const handleBack = () => {
+    const handleBack = () => {www
         navigate('/');
     }
 
     return (
         <div>
-            <div className='rank-body'>
+            <div className='rank-body' style={{justifyContent : 'flex-start'}}>
                 <h1>{roomName} 결과</h1>
-                <table className="rankings-table">
+                <table id="rankings-table">
                     <thead>
                         <tr>
                             <th>Name</th>
