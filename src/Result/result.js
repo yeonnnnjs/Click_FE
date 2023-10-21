@@ -34,6 +34,7 @@ function Result() {
     });
 
     const handleBack = () => {
+        socket.emit('leaveRoom', roomName);
         navigate('/');
     }
 
@@ -42,7 +43,7 @@ function Result() {
             <div className='body'>
                 <div className='rank-body'>
                     <h1>{roomName} 결과</h1>
-                    <table id="rankings-table">
+                    <table className="rankings-table">
                         <thead>
                             <tr>
                                 <th>Name</th>

@@ -3,6 +3,7 @@ h1 {
 }
 
 .rank-body {
+    margin-top: 3vh;
     width: 100%;
     height: 100%;
   display: flex;
