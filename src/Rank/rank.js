@@ -32,7 +32,7 @@ function Rank() {
         <div className='div'>
             <div className='body'>
                 <div className='rank-body'>
-                <h1>순위표</h1>
+                    <h1>순위표</h1>
                     <table className="rankings-table">
                         <thead>
                             <tr>
@@ -51,7 +51,7 @@ function Rank() {
                             ))}
                         </tbody>
                     </table>
-                    </div>
+                </div>
             </div>
             <div className='footer'>
                 <button onClick={handleClick}>

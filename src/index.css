@@ -64,6 +64,10 @@ button {
   font-size: 18px;
 }
 
+.room-screen {
+  margin-top: 3vh;
+}
+
 .border-screen {
   text-align: center;
   background-color: #fff;

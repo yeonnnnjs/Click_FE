@@ -10,6 +10,7 @@ function Room() {
   const [isInput, setIsInput] = useState(false);
   const [message, setMessage] = useState("");
   const [isMaker, setIsMaker] = useState(false);
+  const [data, setData] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,12 +28,35 @@ function Room() {
 
     socket.on('errorHandling', (msg) => {
       setMessage(msg);
-    })
+    });
+
+    socket.on('outGame', () => {
+      navigate('/');
+    });
+
+    socket.on('joinRoom', (rooms) => {
+      setRoomName(rooms.roomName);
+      setPlayers(rooms.players);
+    });
 
     socket.on('inGame', () => {
       localStorage.setItem('roomName', roomName);
       navigate('/game');
     });
+
+    socket.emit('getRoomList');
+
+    socket.on('roomList', (roomList) => {
+      setData(roomList)
+    });
+
+    (() => {
+      window.addEventListener("beforeunload", leaveRoom);
+    })();
+
+    return () => {
+      window.removeEventListener("beforeunload", leaveRoom);
+    };
   });
 
   const createRoom = () => {
@@ -43,9 +67,17 @@ function Room() {
     socket.emit('joinRoom', roomName, name);
   };
 
+  const joinRoomByList = (item) => {
+    socket.emit('joinRoom', item.roomName, name);
+  };
+
   const readyOnWait = () => {
     socket.emit('readyOnWait', roomName);
   };
+
+  const leaveRoom = () => {
+    socket.emit('leaveRoom', roomName, name);
+  }
 
   const handleBack = () => {
     navigate('/');
@@ -55,7 +87,7 @@ function Room() {
     <div className='div'>
       {!isInput ? (
         <div className='body'>
-          <div className="border-screen">
+          <div className="border-screen room-screen">
             <input
               type="text"
               placeholder="방 이름"
@@ -70,24 +102,50 @@ function Room() {
             </div>
           </div>
           <a>{message}</a>
+          <br></br>
+          <div className='rank-body'>
+            <table className="rankings-table">
+              <thead>
+                <tr>
+                  <th>방 이름</th>
+                  <th>방장</th>
+                  <th>플레이어</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.values(data).map((item) => (
+                  <tr onClick={()=>{joinRoomByList(item)}} key={item.roomName}>
+                    <td>{item.roomName}</td>
+                    <td>{item.maker}</td>
+                    <td>{Object.keys(item.players).length}명</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       ) : (
         <div className='body'>
           <div className="border-screen">
             <h1>{roomName}</h1>
+            <a>플레이어</a>
             {Object.values(players).map((player) => (
               <a key={player.id}>{player.name}</a>
             ))}
-            <div className='button-container'>
-              {
-                isMaker ? (
-                  <button onClick={readyOnWait}>준비</button>
-                ) : (
-                  <a>대기 중..</a>
-                )
-              }
-            </div>
+            {
+              isMaker ? (
+                <div className='button-container'>
+                  <button onClick={readyOnWait}>시작</button>
+                  <button onClick={leaveRoom}>나가기</button>
+                </div>
+              ) : (
+                <div className='button-container'>
+                  <button onClick={leaveRoom}>나가기</button>
+                </div>
+              )
+            }
           </div>
+          <a>{message}</a>
         </div>
       )}
       <div className='footer'>
