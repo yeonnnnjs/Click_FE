@@ -55,7 +55,7 @@ function Game() {
   };
 
   const setRedis = () => {
-    fetch(address + '/game/setredis', {
+    fetch(address + '/api/game/setredis', {
       method: 'POST',
       body: JSON.stringify({ name }),
       headers: {

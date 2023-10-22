@@ -9,7 +9,7 @@ function Rank() {
     const address = process.env.REACT_APP_API_URL;
 
     useEffect(() => {
-        fetch(address + '/rank/getrank', {
+        fetch(address + '/api/rank/getrank', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
