@@ -1,8 +1,9 @@
 /* eslint-disable */
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import '../index.css';
 
-function App() {
+function Main() {
   const navigate = useNavigate();
   const [name, setName] = useState('');
 
@@ -51,4 +52,4 @@ function App() {
   );
 }
 
-export default App;
+export default Main;

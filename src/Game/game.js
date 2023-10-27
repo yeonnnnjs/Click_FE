@@ -1,7 +1,7 @@
 /* eslint-disable */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
-import { socket } from '../Context/socketContext';
+import { SocketContext } from '../Context/socketContext';
 import stone from "../stone.png";
 
 function Game() {
@@ -13,6 +13,7 @@ function Game() {
   const roomName = localStorage.getItem('roomName');
   const address = process.env.REACT_APP_API_URL;
   const [time, setTime] = useState();
+  const socket = useContext(SocketContext);
 
   useEffect(() => {
     (() => {

@@ -1,6 +1,6 @@
 /* eslint-disable */
-import React, { useState, useEffect } from 'react';
-import { socket } from '../Context/socketContext';
+import React, { useState, useEffect, useContext } from 'react';
+import { SocketContext } from '../Context/socketContext';
 import { useNavigate } from "react-router-dom";
 
 function Room() {
@@ -11,6 +11,7 @@ function Room() {
   const [message, setMessage] = useState("");
   const [isMaker, setIsMaker] = useState(false);
   const [data, setData] = useState([]);
+  const socket = useContext(SocketContext);
   const navigate = useNavigate();
 
   useEffect(() => {

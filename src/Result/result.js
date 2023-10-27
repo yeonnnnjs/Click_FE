@@ -1,7 +1,7 @@
 /* eslint-disable */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
-import { socket } from '../Context/socketContext';
+import { SocketContext } from '../Context/socketContext';
 
 function Result() {
     const navigate = useNavigate();
@@ -9,6 +9,7 @@ function Result() {
     const roomName = localStorage.getItem('roomName');
     const name = localStorage.getItem('playerName');
     const address = process.env.REACT_APP_API_URL;
+    const socket = useContext(SocketContext);
 
     useEffect(() => {
         fetch(address + '/api/game/getscore', {
