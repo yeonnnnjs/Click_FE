@@ -35,7 +35,7 @@ function Result() {
     });
 
     const handleBack = () => {
-        socket.emit('leaveRoom', roomName);
+        socket.emit('leaveRoom', roomName, name);
         navigate('/');
     }
 

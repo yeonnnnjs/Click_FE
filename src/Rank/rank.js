@@ -43,7 +43,7 @@ function Rank() {
                         </thead>
                         <tbody>
                             {data.map((item) => (
-                                <tr key={item.id}>
+                                <tr key={item.playerName}>
                                     <td>{item.playerName}</td>
                                     <td>{item.clickCount}</td>
                                     <td>{item.timestamp}</td>

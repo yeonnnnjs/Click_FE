@@ -41,7 +41,6 @@ function Room() {
     });
 
     socket.on('inGame', () => {
-      localStorage.setItem('roomName', roomName);
       navigate('/game');
     });
 
@@ -58,13 +57,19 @@ function Room() {
     return () => {
       window.removeEventListener("beforeunload", leaveRoom);
     };
-  });
+  }, []);
+
+  const handleInputChange = (e) => {
+    setRoomName(e.target.value);
+  };
 
   const createRoom = () => {
+    localStorage.setItem('roomName', roomName);
     socket.emit('createRoom', roomName, name);
   };
 
   const joinRoom = () => {
+    localStorage.setItem('roomName', roomName);
     socket.emit('joinRoom', roomName, name);
   };
 
@@ -81,7 +86,7 @@ function Room() {
   }
 
   const handleBack = () => {
-    navigate('/');
+    navigate(-1);
   }
 
   return (
@@ -93,7 +98,7 @@ function Room() {
               type="text"
               placeholder="방 이름"
               value={roomName}
-              onChange={(e) => setRoomName(e.target.value)}
+              onChange={handleInputChange}
             />
             <div className='button-container'>
               <div className='button-container'>

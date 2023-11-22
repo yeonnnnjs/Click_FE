@@ -14,13 +14,13 @@ function App() {
   return (
     <SocketContext.Provider value={socket}>
       <Routes>
-        <Route exact id='root' path='/' Component={Main} />
-        <Route exact path='/click' Component={Click} />
-        <Route exact path='/rank' Component={Rank} />
-        <Route exact path='/changelog' Component={Changelog} />
-        <Route exact path='/game' Component={Game} />
-        <Route exact path='/room' Component={Room} />
-        <Route exact path='/result' Component={Result} />
+        <Route path='/' Component={Main} />
+        <Route path='/click' Component={Click} />
+        <Route path='/rank' Component={Rank} />
+        <Route path='/changelog' Component={Changelog} />
+        <Route path='/game' Component={Game} />
+        <Route path='/room' Component={Room} />
+        <Route path='/result' Component={Result} />
       </Routes>
     </SocketContext.Provider>
   );

@@ -16,10 +16,6 @@ function Game() {
   const socket = useContext(SocketContext);
 
   useEffect(() => {
-    (() => {
-      window.addEventListener("beforeunload", preventClose);
-    })();
-
     socket.on('gameStart', (playerList) => {
       setGameStart(true);
     });
@@ -32,10 +28,14 @@ function Game() {
       navigate("/result");
     });
 
+    (() => {
+      window.addEventListener("beforeunload", preventClose);
+    })();
+
     return () => {
       window.removeEventListener("beforeunload", preventClose);
     };
-  });
+  }, []);
 
   const preventClose = (e) => {
     e.preventDefault();
